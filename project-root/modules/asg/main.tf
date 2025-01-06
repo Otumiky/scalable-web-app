@@ -28,7 +28,7 @@ resource "aws_autoscaling_group" "asg" {
   desired_capacity     = var.desired_capacity
   max_size             = var.max_size
   min_size             = var.min_size
-  vpc_zone_identifier  = [var.subnet_id]
+  vpc_zone_identifier  = var.subnet_ids
   launch_template {
     id      = aws_launch_template.web_template.id
     version = "$Latest"
