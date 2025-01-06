@@ -38,8 +38,8 @@ module "asg" {
   source           = "C://Users//madus//Desktop//30 Days of Terraform//30-Day-Terraform-challenge-//Day26//project-root//modules//asg"
   ami_id           = var.ami_id
   instance_type    = var.instance_type
+  subnet_ids       = [module.vpc.subnet_1, module.vpc.subnet_2]
   subnet_id        = module.vpc.subnet_1
-  #user_data        =  <<-EOF
               
 
   desired_capacity = 2
