@@ -1,3 +1,3 @@
-output "web_url" {
-  value = "http://${module.elb.elb_dns_name}"
+output "alb_dns" {
+  value = module.alb.alb_dns
 }
