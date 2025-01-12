@@ -1,38 +1,30 @@
-#Launch Template
-resource "aws_launch_template" "web_template" {
-  name_prefix   = "web-launch-template"
+resource "aws_launch_template" "lt" {
+  name_prefix   = var.name_prefix
+  image_id      = var.image_id
   instance_type = var.instance_type
-  image_id      = var.ami_id
-  user_data     = base64encode(<<-EOF
-              #!/bin/bash
-              sudo yum update -y
-              sudo yum install -y httpd
-              sudo systemctl start httpd
-              sudo systemctl enable httpd
-              echo "Hello from Server $(hostname)" > /var/www/html/index.html
-              EOF
-  )
-
-             tags = {
-    Name = "WebServer"
-  }
-  ##user_data     = base64encode(file(var.user_data))
 
   network_interfaces {
-    subnet_id   = var.subnet_id
     associate_public_ip_address = true
+    security_groups             = var.security_groups
   }
+
+  user_data = base64encode(var.user_data)
 }
 
 resource "aws_autoscaling_group" "asg" {
   desired_capacity     = var.desired_capacity
-  max_size             = var.max_size
   min_size             = var.min_size
-  vpc_zone_identifier  = var.subnet_ids
+  max_size             = var.max_size
   launch_template {
-    id      = aws_launch_template.web_template.id
+    id      = aws_launch_template.lt.id
     version = "$Latest"
   }
+  vpc_zone_identifier  = var.subnets
+  target_group_arns    = [var.target_group_arn]
 
-  target_group_arns = [var.target_group_arn]
+  tag {
+    key                 = "Name"
+    value               = var.name_prefix
+    propagate_at_launch = true
+  }
 }
