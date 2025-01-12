@@ -1,6 +1,19 @@
-variable "vpc_id" {}
-variable "elb_security_group" {}
-variable "subnet_ids" {
-  description = "List of subnet IDs where the ALB will be deployed"
+variable "name" {
+  description = "Name of the ALB"
+  type        = string
+}
+
+variable "security_groups" {
+  description = "Security groups for the ALB"
   type        = list(string)
+}
+
+variable "subnets" {
+  description = "Subnets for the ALB"
+  type        = list(string)
+}
+
+variable "vpc_id" {
+  description = "VPC ID"
+  type        = string
 }
