@@ -1,29 +1,19 @@
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
+variable "cidr_block" {
+  description = "The CIDR block for the VPC"
   type        = string
+}
+
+variable "public_subnets" {
+  description = "List of public subnet CIDR blocks"
+  type        = list(string)
+}
+
+variable "availability_zones" {
+  description = "List of availability zones"
+  type        = list(string)
 }
 
 variable "vpc_name" {
-  description = "Name of the VPC"
-  type        = string
-}
-
-variable "web_subnet_1_cidr" {
-  description = "CIDR block for the subnet_1"
-  type        = string
-}
-
-variable "web_subnet_2_cidr" {
-  description = "CIDR block for the subnet_2"
-  type        = string
-}
-
-variable "subnet_1_az" {
-  description = "Availability zone for subnet_1"
-  type        = string
-}
-
-variable "subnet_2_az" {
-  description = "Availability zone for subnet_2"
+  description = "The name of the VPC"
   type        = string
 }
