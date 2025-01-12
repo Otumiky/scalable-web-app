@@ -2,21 +2,14 @@ output "vpc_id" {
   value = aws_vpc.main.id
 }
 
-output "subnet_1" {
-  value = aws_subnet.web_subnet_1.id
+output "public_subnets" {
+  value = aws_subnet.public[*].id
 }
 
-output "subnet_2" {
-  value = aws_subnet.web_subnet_2.id
+output "asg_sg_id" {
+ value = [aws_security_group.asg_sg.id]
 }
 
-output "subnet_1_security_group_id" {
-  value = aws_security_group.web_subnet_1sg.id
-}
-
-output "subnet_2_security_group_id" {
-  value = aws_security_group.web_subnet_2sg.id
-}
-output "elb_sg" {
-  value = aws_security_group.elb_sg
+output "alb_sg_id" {
+  value = [aws_security_group.alb_sg.id]
 }
