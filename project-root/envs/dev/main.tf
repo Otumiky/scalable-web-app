@@ -1,5 +1,5 @@
 module "vpc" {
-  source             = "C://Users//madus//Desktop//30 Days of Terraform//two-tier//module//vpc"
+  source             = "module//vpc"
   cidr_block         = "10.0.0.0/16"
   public_subnets     = ["10.0.1.0/24", "10.0.2.0/24"]
   availability_zones = ["us-east-1a", "us-east-1b"]
@@ -7,9 +7,9 @@ module "vpc" {
 }
 
 module "asg" {
-  source          = "C://Users//madus//Desktop//30 Days of Terraform//two-tier//module//asg"
+  source          = "module//asg"
   name_prefix     = "web-tier"
-  image_id        = "ami-0453ec754f44f9a4a"
+  image_id        = "ami-045xxxxxxxxxxx"
   instance_type   = "t2.micro"
   security_groups = module.vpc.asg_sg_id
   subnets         = module.vpc.public_subnets
@@ -22,7 +22,7 @@ module "asg" {
 }
 
 module "alb" {
-  source          = "C://Users//madus//Desktop//30 Days of Terraform//two-tier//module//elb"
+  source          = "module//elb"
   name            = "web-alb"
   security_groups = module.vpc.alb_sg_id
   subnets         = module.vpc.public_subnets
